@@ -32,6 +32,9 @@
     <ClInclude Include="Process.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="Training_rules.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CppCLR_WinformsProjekt.cpp">
@@ -47,6 +50,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="Process.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="Training_rules.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>

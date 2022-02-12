@@ -3,6 +3,7 @@
 #include "time.h"
 #include "pch.h"
 #include <iostream>
+#include "Training_rules.h"
 
 namespace CppCLRWinformsProjekt {
 
@@ -494,6 +495,67 @@ namespace CppCLRWinformsProjekt {
 	private: System::Void continuousToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 		int samples_size = numSample * inputDim;
 		normalize(Samples, samples_size);
+
+		Pen^ pen = gcnew Pen(Color::Blue, 3.0f);
+
+		int min_x, max_x, min_y, max_y;
+
+		pictureBox1->Refresh();
+		for (int i = 0; i < numSample; i++) {
+			int temp_x = Convert::ToInt32(50 * Samples[i * inputDim] + (pictureBox1->Width >> 1));
+			int temp_y = Convert::ToInt32((pictureBox1->Height >> 1) - 1 * (50) * Samples[i * inputDim + 1]);
+
+
+			Pen^ pen;// = gcnew Pen(Color::Black, 3.0f);
+			switch ((int)(targets[i])) {
+			case 0: pen = gcnew Pen(Color::Black, 3.0f); break;
+			case 1: pen = gcnew Pen(Color::Red, 3.0f); break;
+			case 2: pen = gcnew Pen(Color::Blue, 3.0f); break;
+			case 3: pen = gcnew Pen(Color::Pink, 3.0f); break;
+			case 4: pen = gcnew Pen(Color::Yellow, 3.0f); break;
+			case 5: pen = gcnew Pen(Color::Orange, 3.0f); break;
+			case 6: pen = gcnew Pen(Color::Aqua, 3.0f); break;
+			default: pen = gcnew Pen(Color::YellowGreen, 3.0f);
+			}
+			pictureBox1->CreateGraphics()->DrawLine(pen, temp_x - 5, temp_y, temp_x + 5, temp_y);
+			pictureBox1->CreateGraphics()->DrawLine(pen, temp_x, temp_y - 5, temp_x, temp_y + 5);
+		}
+
+		float Error_max = 0.5;
+		int count = 0;
+		float Error;
+		bool state = true;
+		int bias = 1;
+
+		int cycle = 0;
+		do {
+			cycle++;
+			Error = delta_train(Samples, numSample, weights, bias, targets, numClass, inputDim, numHideNeur, Vweights);
+			if (Error < Error_max)
+				state = false;
+		} while (state);
+		label6->Text = " Cycle = " + System::Convert::ToString(cycle);
+
+		for (int label = 0; label < numHideNeur; label++) {
+
+			min_x = (this->pictureBox1->Width) / -2;
+			min_y = YPoint(min_x, &Vweights[3 * label], 50);
+			max_x = (this->pictureBox1->Width) / 2;
+			max_y = YPoint(max_x, &Vweights[3 * label], 50);
+
+			Pen^ pen;// = gcnew Pen(Color::Black, 3.0f);
+			switch (label) {
+			case 0: pen = gcnew Pen(Color::Black, 3.0f); break;
+			case 1: pen = gcnew Pen(Color::Red, 3.0f); break;
+			case 2: pen = gcnew Pen(Color::Blue, 3.0f); break;
+			case 3: pen = gcnew Pen(Color::Pink, 3.0f); break;
+			case 4: pen = gcnew Pen(Color::Yellow, 3.0f); break;
+			case 5: pen = gcnew Pen(Color::Orange, 3.0f); break;
+			case 6: pen = gcnew Pen(Color::Aqua, 3.0f); break;
+			default: pen = gcnew Pen(Color::YellowGreen, 3.0f);
+			}
+			pictureBox1->CreateGraphics()->DrawLine(pen, (pictureBox1->Width / 2) + min_x, (pictureBox1->Height / 2) - min_y, (pictureBox1->Width / 2) + max_x, (pictureBox1->Height / 2) - max_y);
+		}
 	}
 
 	void normalize(float* samples, int size) {

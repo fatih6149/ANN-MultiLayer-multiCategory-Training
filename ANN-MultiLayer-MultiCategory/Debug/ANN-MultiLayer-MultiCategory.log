@@ -1,9 +1,7 @@
 ﻿  CppCLR_WinformsProjekt.cpp
-E:\github\ANN-MultiLayer-multiCategory-Training\ANN-MultiLayer-MultiCategory\Form1.h(456,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-E:\github\ANN-MultiLayer-multiCategory-Training\ANN-MultiLayer-MultiCategory\Form1.h(460,63): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-E:\github\ANN-MultiLayer-multiCategory-Training\ANN-MultiLayer-MultiCategory\Form1.h(463,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-E:\github\ANN-MultiLayer-multiCategory-Training\ANN-MultiLayer-MultiCategory\Form1.h(466,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  Process.cpp
-  Generating Code...
+E:\github\ANN-MultiLayer-multiCategory-Training\ANN-MultiLayer-MultiCategory\Form1.h(459,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+E:\github\ANN-MultiLayer-multiCategory-Training\ANN-MultiLayer-MultiCategory\Form1.h(463,63): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+E:\github\ANN-MultiLayer-multiCategory-Training\ANN-MultiLayer-MultiCategory\Form1.h(466,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+E:\github\ANN-MultiLayer-multiCategory-Training\ANN-MultiLayer-MultiCategory\Form1.h(469,61): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   AssemblyInfo.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
   ANN-MultiLayer-MultiCategory.vcxproj -> E:\github\ANN-MultiLayer-multiCategory-Training\Debug\ANN-MultiLayer-MultiCategory.exe

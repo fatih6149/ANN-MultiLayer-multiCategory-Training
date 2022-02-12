@@ -1,0 +1,9 @@
+﻿  pch.cpp
+  AssemblyInfo.cpp
+  CppCLR_WinformsProjekt.cpp
+  Form1.cpp
+  Process.cpp
+  Generating Code...
+  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
+  AssemblyInfo.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+  ANN-MultiLayer-MultiCategory.vcxproj -> E:\github\ANN-MultiLayer-multiCategory-Training\Debug\ANN-MultiLayer-MultiCategory.exe

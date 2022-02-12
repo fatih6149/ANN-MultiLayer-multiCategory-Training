@@ -28,3 +28,13 @@ float* Add_Labels(float* Labels, int Size, int label) {//* her class icin bir et
 int YPoint(int x, float* w, int Carpan) {// w0x0 + w1x1 + w2b = + => x2 = ( -w2b - w0x0 ) / x1
 	return (int)((float)(-1 * (float)Carpan * w[2] - 1 * (w[0] * x)) / (float)(w[1]));
 }
+
+float sigmoid(float net) {
+	return (1.0 / (1.0 + pow(euler, -net)));
+}
+
+
+
+float sigmoid_bipolar(float net) {
+	return ((2 / (1 + pow(euler, -net))) - 1);
+}

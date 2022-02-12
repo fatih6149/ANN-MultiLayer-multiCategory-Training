@@ -1,1 +1,3 @@
 E:\github\ANN-MultiLayer-multiCategory-Training\ANN-MultiLayer-MultiCategory\Debug\ANN-MultiLayer-MultiCategory.vcxproj.AssemblyReference.cache
+E:\github\ANN-MultiLayer-multiCategory-Training\ANN-MultiLayer-MultiCategory\Debug\ANN_MultiLayer_MultiCategory.Form1.resources
+E:\github\ANN-MultiLayer-multiCategory-Training\ANN-MultiLayer-MultiCategory\Debug\ANN-MultiLayer-MultiCategory.vcxproj.GenerateResource.cache

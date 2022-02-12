@@ -56,6 +56,8 @@ namespace CppCLRWinformsProjekt {
 		/// User Defined Variables
 		int  numClass = 0, numSample = 0, numHideNeur = 0, inputDim = 2;
 		float* Samples, * targets;
+		float* weights;
+		float* Vweights;
 
 	private: System::Windows::Forms::MenuStrip^ menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^ processToolStripMenuItem;
@@ -267,8 +269,9 @@ namespace CppCLRWinformsProjekt {
 			   // randomlyToolStripMenuItem
 			   // 
 			   this->randomlyToolStripMenuItem->Name = L"randomlyToolStripMenuItem";
-			   this->randomlyToolStripMenuItem->Size = System::Drawing::Size(128, 22);
+			   this->randomlyToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			   this->randomlyToolStripMenuItem->Text = L"Randomly";
+			   this->randomlyToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::randomlyToolStripMenuItem_Click);
 			   // 
 			   // trainingToolStripMenuItem
 			   // 
@@ -280,7 +283,7 @@ namespace CppCLRWinformsProjekt {
 			   // continuousToolStripMenuItem
 			   // 
 			   this->continuousToolStripMenuItem->Name = L"continuousToolStripMenuItem";
-			   this->continuousToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			   this->continuousToolStripMenuItem->Size = System::Drawing::Size(136, 22);
 			   this->continuousToolStripMenuItem->Text = L"Continuous";
 			   // 
 			   // exitToolStripMenuItem
@@ -439,9 +442,51 @@ namespace CppCLRWinformsProjekt {
 		numClass = Convert::ToInt32(ClassCountBox->Text);
 		numHideNeur = Convert::ToInt32(hideNeurCountBox->Text);
 
+		weights = new float[numClass * (numHideNeur + 1)];
+		Vweights = new float[numHideNeur * (inputDim + 1)];
+
 		button1->Text = " Network is Ready : ";
 	}
-
 		   
-	};
+	private: System::Void randomlyToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		Pen^ pen = gcnew Pen(Color::Blue, 3.0f);
+
+		int min_x, max_x, min_y, max_y;
+
+		srand(time(0));
+
+		for (int label = 0; label < numClass; label++) {// initilize output neurons weights
+			for (int i = 0; i < numHideNeur + 1; i++)
+				weights[label * (numHideNeur + 1) + i] = ((double)rand()) / (RAND_MAX);
+		}
+
+		srand(time(0));
+		for (int label = 0; label < numHideNeur; label++) {// initilize input neurons weights
+			for (int i = 0; i < inputDim + 1; i++)
+				Vweights[label * (inputDim + 1) + i] = ((double)rand()) / (RAND_MAX);
+
+			label3->Text = " w[0]: " + System::Convert::ToString(weights[3 * label]);
+			label4->Text = " w[1]: " + System::Convert::ToString(weights[3 * label + 1]);
+			label5->Text = " w[2]: " + System::Convert::ToString(weights[3 * label + 2]);
+
+			min_x = (this->pictureBox1->Width) / -2;
+			min_y = YPoint(min_x, &Vweights[3 * label]);
+			max_x = (this->pictureBox1->Width) / 2;
+			max_y = YPoint(max_x, &Vweights[3 * label]);
+
+			Pen^ pen;// = gcnew Pen(Color::Black, 3.0f);
+			switch (label) {
+			case 0: pen = gcnew Pen(Color::Black, 3.0f); break;
+			case 1: pen = gcnew Pen(Color::Red, 3.0f); break;
+			case 2: pen = gcnew Pen(Color::Blue, 3.0f); break;
+			case 3: pen = gcnew Pen(Color::Pink, 3.0f); break;
+			case 4: pen = gcnew Pen(Color::Yellow, 3.0f); break;
+			case 5: pen = gcnew Pen(Color::Orange, 3.0f); break;
+			case 6: pen = gcnew Pen(Color::Aqua, 3.0f); break;
+			default: pen = gcnew Pen(Color::YellowGreen, 3.0f);
+			}
+			pictureBox1->CreateGraphics()->DrawLine(pen, (pictureBox1->Width / 2) + min_x, (pictureBox1->Height / 2) - min_y, (pictureBox1->Width / 2) + max_x, (pictureBox1->Height / 2) - max_y);
+		}
+	}//Randomly
+};
 }

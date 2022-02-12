@@ -271,7 +271,7 @@ namespace CppCLRWinformsProjekt {
 			   // randomlyToolStripMenuItem
 			   // 
 			   this->randomlyToolStripMenuItem->Name = L"randomlyToolStripMenuItem";
-			   this->randomlyToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			   this->randomlyToolStripMenuItem->Size = System::Drawing::Size(128, 22);
 			   this->randomlyToolStripMenuItem->Text = L"Randomly";
 			   this->randomlyToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::randomlyToolStripMenuItem_Click);
 			   // 
@@ -294,6 +294,7 @@ namespace CppCLRWinformsProjekt {
 			   this->exitToolStripMenuItem->Name = L"exitToolStripMenuItem";
 			   this->exitToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			   this->exitToolStripMenuItem->Text = L"Exit";
+			   this->exitToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::exitToolStripMenuItem_Click);
 			   // 
 			   // label4
 			   // 
@@ -627,6 +628,9 @@ namespace CppCLRWinformsProjekt {
 		}
 		//===========================================================
 		label5->Text = "x1 = " + mean_of_x1 + " |||| x2 = " + mean_of_x2;
+	}
+	private: System::Void exitToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		Application::Exit();
 	}
 };
 }

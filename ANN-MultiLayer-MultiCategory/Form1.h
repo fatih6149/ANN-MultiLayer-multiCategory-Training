@@ -58,6 +58,7 @@ namespace CppCLRWinformsProjekt {
 		float* Samples, * targets;
 		float* weights;
 		float* Vweights;
+		float* tmp_samples;
 
 	private: System::Windows::Forms::MenuStrip^ menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^ processToolStripMenuItem;
@@ -283,8 +284,9 @@ namespace CppCLRWinformsProjekt {
 			   // continuousToolStripMenuItem
 			   // 
 			   this->continuousToolStripMenuItem->Name = L"continuousToolStripMenuItem";
-			   this->continuousToolStripMenuItem->Size = System::Drawing::Size(136, 22);
+			   this->continuousToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			   this->continuousToolStripMenuItem->Text = L"Continuous";
+			   this->continuousToolStripMenuItem->Click += gcnew System::EventHandler(this, &Form1::continuousToolStripMenuItem_Click);
 			   // 
 			   // exitToolStripMenuItem
 			   // 
@@ -488,5 +490,81 @@ namespace CppCLRWinformsProjekt {
 			pictureBox1->CreateGraphics()->DrawLine(pen, (pictureBox1->Width / 2) + min_x, (pictureBox1->Height / 2) - min_y, (pictureBox1->Width / 2) + max_x, (pictureBox1->Height / 2) - max_y);
 		}
 	}//Randomly
+
+	private: System::Void continuousToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+		int samples_size = numSample * inputDim;
+		normalize(Samples, samples_size);
+	}
+
+	void normalize(float* samples, int size) {
+		//for (int i = 0; i < size; i++)
+		//	samples[i] /= (pictureBox1->Width);
+
+		float sum_of_x1 = 0, sum_of_x2 = 0;
+		float mean_of_x1, mean_of_x2;
+		float* tmp_sample_x1 = new float[numSample];
+		float* tmp_sample_x2 = new float[numSample];
+		float sum_of_tmp_samples_x1 = 0, sum_of_tmp_samples_x2 = 0;
+		float ss1, ss2;
+
+		tmp_samples = new float[numSample * inputDim];
+		////==================== mean of samples ======================
+
+		for (int i = 0; i < numSample * inputDim; i++) {
+			if (i % 2 == 0) {
+				sum_of_x1 += samples[i];
+			}
+			else
+			{
+				sum_of_x2 += samples[i];
+			}
+		}
+		mean_of_x1 = sum_of_x1 / numSample;
+		mean_of_x2 = sum_of_x2 / numSample;
+		//===========================================================
+
+		//======================== standart sapma====================
+		for (int i = 0; i < numSample * inputDim; i++) {
+			if (i % 2 == 0) {
+				tmp_sample_x1[i] = samples[i] - mean_of_x1;
+				tmp_sample_x1[i] = tmp_sample_x1[i] * tmp_sample_x1[i];
+			}
+			else
+			{
+				tmp_sample_x2[i] = samples[i] - mean_of_x2;
+				tmp_sample_x2[i] = tmp_sample_x2[i] * tmp_sample_x2[i];
+			}
+		}
+		for (int i = 0; i < numSample * inputDim; i++) {
+			if (i % 2 == 0) {
+				sum_of_tmp_samples_x1 += tmp_sample_x1[i];
+			}
+			else
+			{
+				sum_of_tmp_samples_x2 += tmp_sample_x2[i];
+			}
+		}
+		ss1 = sum_of_tmp_samples_x1 / (numSample);//(numSample - 1)
+		ss1 = sqrt(ss1);
+		ss2 = sum_of_tmp_samples_x2 / (numSample);
+		ss2 = sqrt(ss2);
+		//===========================================================
+
+		float delete_var;
+		//======================== Normalize data====================
+		for (int i = 0; i < numSample * inputDim; i++) {
+			if (i % 2 == 0) {// if x1
+				samples[i] = (samples[i] - mean_of_x1) / ss1;
+				delete_var = samples[i];
+			}
+			else
+			{// if x2
+				samples[i] = (samples[i] - mean_of_x2) / ss2;
+				delete_var = samples[i];
+			}
+		}
+		//===========================================================
+		label5->Text = "x1 = " + mean_of_x1 + " |||| x2 = " + mean_of_x2;
+	}
 };
 }
